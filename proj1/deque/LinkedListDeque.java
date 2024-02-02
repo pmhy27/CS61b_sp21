@@ -49,32 +49,41 @@ public class LinkedListDeque<T> {
         return frontSentinel.next == endSentinel;
     }
 
-    private int size(){
+    public int size(){
         return size;
     }
 
     public void printDeque() {
         Node pointer = frontSentinel.next;
         while (pointer != endSentinel){
-            System.out.println(pointer.items);
+            System.out.print(pointer.items);
+            System.out.print(" ");
             pointer = pointer.next;
         }
         System.out.println();
     }
 
-    public void removeFirst() {
+    public T removeFirst() {
         if (size > 0) {
+            T removing = frontSentinel.next.items;
             frontSentinel.next.next.previous = frontSentinel;
             frontSentinel.next = frontSentinel.next.next;
             size--;
+            return removing;
+        } else {
+            return null;
         }
-            }
+    }
 
-    public void removeLast() {
+    public T removeLast() {
         if (size > 0) {
+            T removing = endSentinel.previous.items;
             endSentinel.previous.previous.next = endSentinel;
             endSentinel.previous = endSentinel.previous.previous;
             size--;
+            return removing;
+        } else {
+            return null;
         }
     }
 
@@ -113,7 +122,7 @@ public class LinkedListDeque<T> {
             aa.addLast(4);
             aa.addLast(5);
             aa.addLast(6);
-            System.out.println(aa.getRecursive(2));
+            aa.printDeque();
         }
 
 }
