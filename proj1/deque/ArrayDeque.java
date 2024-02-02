@@ -17,7 +17,7 @@ public class ArrayDeque<T> implements Deque<T> {
     public void resize(int x){
         T[] newArray = (T[]) new Object[x];
         if(nextFirst + 1 <= nextLast - 1){
-            System.arraycopy(items, nextFirst,newArray,0,size);
+            System.arraycopy(items, nextFirst + 1,newArray,0,size);
         } else {
             System.arraycopy(items, nextFirst + 1,newArray,0, items.length -1 -nextFirst);
             System.arraycopy(items,0,newArray,items.length -1 -nextFirst, nextLast);
@@ -81,10 +81,12 @@ public class ArrayDeque<T> implements Deque<T> {
             removedItem = items[0];
             nextFirst = 0;
         }
-        if (size < items.length / 4) {
+
+        size--;
+
+        if (size > 8 && size < items.length / 4) {
             resize(items.length / 2);
         }
-        size--;
         return removedItem;
     }
 
@@ -100,7 +102,10 @@ public class ArrayDeque<T> implements Deque<T> {
             removedItem = items[items.length - 1];
             nextLast = items.length - 1;
         }
-        if (size < items.length / 4) {
+
+        size--;
+
+        if (items.length > 8 && size < items.length / 4) {
             resize(items.length / 2);
         }
         return removedItem;
@@ -143,6 +148,14 @@ public class ArrayDeque<T> implements Deque<T> {
         aa.addFirst(9);
         aa.addFirst(10);
         aa.addFirst(11);
+        aa.removeFirst();
+        aa.removeFirst();
+        aa.removeFirst();
+        aa.removeLast();
+        aa.removeLast();
+        aa.removeLast();
+
+
 
     }
 
