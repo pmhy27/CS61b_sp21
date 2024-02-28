@@ -1,7 +1,7 @@
 package deque;
 import java.util.Iterator;
 
-public class ArrayDeque<T> implements Deque<T> {
+public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private T[] items;
     public  int size;
     public int nextFirst;
@@ -123,11 +123,34 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     public Iterator<T> iterator() {
-        return null;
+        return new ArrayDequeIterator();
     }
 
+    private class ArrayDequeIterator implements Iterator<T>{
+        private int nextPos;
+        public ArrayDequeIterator(){
+            nextPos = nextFirst + 1;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return nextPos != nextLast;
+        }
+
+        @Override
+        public T next() {
+            T returnItem = items[nextPos];
+            nextPos += 1;
+            if(nextPos == items.length){
+                nextPos = 0;
+            }
+            return returnItem;
+        }
+    }
+
+
     public static void main(String[] args) {
-        ArrayDeque aa = new ArrayDeque();
+        ArrayDeque<Integer> aa = new ArrayDeque<Integer>();
         aa.addFirst(2);
         aa.addFirst(1);
         aa.addLast(3);
@@ -135,25 +158,16 @@ public class ArrayDeque<T> implements Deque<T> {
         aa.addLast(5);
         aa.addLast(6);
         aa.addLast(7);
-        aa.removeFirst();
-        aa.removeFirst();
-        aa.addLast(8);
-        System.out.println(aa.get(0));
-        System.out.println(aa.get(1));
-        System.out.println(aa.get(2));
-        System.out.println(aa.get(3));
-        System.out.println(aa.get(4));
-        System.out.println(aa.get(5));
-        System.out.println(aa.get(6));
-        aa.addFirst(9);
-        aa.addFirst(10);
-        aa.addFirst(11);
-        aa.removeFirst();
-        aa.removeFirst();
-        aa.removeFirst();
-        aa.removeLast();
-        aa.removeLast();
-        aa.removeLast();
+
+//        Iterator<Integer> seer = aa.iterator();
+//
+//        while (seer.hasNext()){
+//            System.out.println(seer.next());
+//        }
+
+        for(int i : aa){
+            System.out.println(i);
+        }
 
 
 
