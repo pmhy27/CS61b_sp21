@@ -1,6 +1,9 @@
 package deque;
 
-public class LinkedListDeque<T> {
+import java.util.Iterator;
+import java.util.LinkedList;
+
+public class LinkedListDeque<T> implements Iterable<T> {
     private class Node {
         private T items;
         private Node next;
@@ -114,6 +117,42 @@ public class LinkedListDeque<T> {
         }
     }
 
+    public Iterator<T> iterator(){
+        return new LinkedListIterator();
+    }
+    private class LinkedListIterator implements Iterator<T> {
+        Node currentNode;
+        public LinkedListIterator(){
+            currentNode = frontSentinel.next;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return currentNode != endSentinel;
+        }
+
+        @Override
+        public T next() {
+            T returnItem = currentNode.items;
+            currentNode= currentNode.next;
+            return returnItem;
+        }
+    }
+
+    public boolean equals(Object o){
+        if( o instanceof LinkedListDeque){
+            if( this.size == ((LinkedListDeque<T>) o).size ){
+                for (int i = 0; i < size; i++){
+                    if( !this.get(i).equals(((LinkedListDeque<T>) o).get(i))){
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void main(String[] args){
             LinkedListDeque<Integer> aa = new LinkedListDeque<>();
             aa.addFirst(3);
@@ -122,7 +161,22 @@ public class LinkedListDeque<T> {
             aa.addLast(4);
             aa.addLast(5);
             aa.addLast(6);
-            aa.printDeque();
-        }
+
+            LinkedListDeque<Integer> bb = new LinkedListDeque<>();
+            bb.addLast(1);
+            bb.addLast(2);
+            bb.addLast(3);
+            bb.addLast(4);
+            bb.addLast(5);
+            bb.addLast(6);
+
+
+            System.out.println(aa.equals(bb));
+
+
+
+
+    }
+
 
 }
