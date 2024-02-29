@@ -128,32 +128,13 @@ public class ArrayDeque<T> implements Deque<T> {
 
     public static void main(String[] args) {
         ArrayDeque aa = new ArrayDeque();
-        aa.addFirst(2);
-        aa.addFirst(1);
-        aa.addLast(3);
-        aa.addLast(4);
-        aa.addLast(5);
-        aa.addLast(6);
-        aa.addLast(7);
-        aa.removeFirst();
-        aa.removeFirst();
-        aa.addLast(8);
-        System.out.println(aa.get(0));
-        System.out.println(aa.get(1));
-        System.out.println(aa.get(2));
-        System.out.println(aa.get(3));
-        System.out.println(aa.get(4));
-        System.out.println(aa.get(5));
-        System.out.println(aa.get(6));
-        aa.addFirst(9);
-        aa.addFirst(10);
-        aa.addFirst(11);
-        aa.removeFirst();
-        aa.removeFirst();
-        aa.removeFirst();
-        aa.removeLast();
-        aa.removeLast();
-        aa.removeLast();
+
+
+        Iterator<Integer> Seer = aa.iterator();
+        while(Seer.hasNext()){
+            System.out.println(Seer.next());
+        }
+
 
 
 
