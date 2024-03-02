@@ -1,9 +1,8 @@
 package deque;
 
 import java.util.Iterator;
-import java.util.LinkedList;
 
-public class LinkedListDeque<T> implements Iterable<T> {
+public class LinkedListDeque<T> implements Iterable<T>{
     private class Node {
         private T items;
         private Node next;
@@ -117,25 +116,26 @@ public class LinkedListDeque<T> implements Iterable<T> {
         }
     }
 
-    public Iterator<T> iterator(){
-        return new LinkedListIterator();
+    public Iterator<T> iterator() {
+        return new LinkedListDequeIterator();
     }
-    private class LinkedListIterator implements Iterator<T> {
-        Node currentNode;
-        public LinkedListIterator(){
-            currentNode = frontSentinel.next;
+
+    private class LinkedListDequeIterator implements Iterator<T>{
+        private Node nextNode;
+        public LinkedListDequeIterator(){
+            nextNode = frontSentinel.next;
         }
 
         @Override
         public boolean hasNext() {
-            return currentNode != endSentinel;
+            return (nextNode != endSentinel);
         }
 
         @Override
         public T next() {
-            T returnItem = currentNode.items;
-            currentNode= currentNode.next;
-            return returnItem;
+            T returnNode = nextNode.items;
+            nextNode = nextNode.next;
+            return returnNode;
         }
     }
 
@@ -154,29 +154,27 @@ public class LinkedListDeque<T> implements Iterable<T> {
     }
 
     public static void main(String[] args){
-            LinkedListDeque<Integer> aa = new LinkedListDeque<>();
+        LinkedListDeque<Integer> aa = new LinkedListDeque<>();
             aa.addFirst(3);
             aa.addFirst(2);
             aa.addFirst(1);
             aa.addLast(4);
             aa.addLast(5);
             aa.addLast(6);
+            aa.printDeque();
 
-            LinkedListDeque<Integer> bb = new LinkedListDeque<>();
-            bb.addLast(1);
-            bb.addLast(2);
-            bb.addLast(3);
-            bb.addLast(4);
-            bb.addLast(5);
-            bb.addLast(6);
+//      Iterator<Integer> seer = aa.iterator();
+//      while (seer.hasNext()){
+//          System.out.println(seer.next());
+//      }
 
-
-            System.out.println(aa.equals(bb));
-
-
-
-
+        for (int i: aa){
+            System.out.println(i);
+        }
     }
+
+
+
 
 
 }
