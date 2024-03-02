@@ -17,7 +17,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T>{
 
     private final Node frontSentinel;
     private final Node endSentinel;
-    int size;
+    private int size;
 
     public LinkedListDeque() {
         frontSentinel = new Node(null, null, null);
@@ -47,9 +47,6 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T>{
         size++;
     }
 
-    public boolean isEmpty() {
-        return frontSentinel.next == endSentinel;
-    }
 
     public int size(){
         return size;
@@ -108,7 +105,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T>{
             return helper_getRecursive(frontSentinel.next,x);
         }
     }
-    public T helper_getRecursive(Node n, int x){
+    private T helper_getRecursive(Node n, int x){
         if (x == 0) {
             return n.items;
         } else {
@@ -140,10 +137,10 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T>{
     }
 
     public boolean equals(Object o){
-        if( o instanceof LinkedListDeque){
-            if( this.size == ((LinkedListDeque<T>) o).size ){
+        if( o instanceof Deque){
+            if( this.size == ((Deque<T>) o).size() ){
                 for (int i = 0; i < size; i++){
-                    if( !this.get(i).equals(((LinkedListDeque<T>) o).get(i))){
+                    if( !this.get(i).equals(((Deque<T>) o).get(i))){
                         return false;
                     }
                 }
