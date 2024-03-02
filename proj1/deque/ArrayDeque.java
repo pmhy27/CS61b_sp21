@@ -3,9 +3,9 @@ import java.util.Iterator;
 
 public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private T[] items;
-    public  int size;
-    public int nextFirst;
-    public int nextLast;
+    private int size;
+    private int nextFirst;
+    private int nextLast;
 
     public ArrayDeque() {
         items = (T[]) new Object[8];
@@ -14,7 +14,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         size = 0;
     }
 
-    public void resize(int x){
+    private void resize(int x){
         T[] newArray = (T[]) new Object[x];
         if(nextFirst + 1 <= nextLast - 1){
             System.arraycopy(items, nextFirst + 1,newArray,0,size);
@@ -28,9 +28,6 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     public void addFirst(T x){
-        if (size == items.length) {
-            resize(size * 2);
-        }
         items[nextFirst] = x;
         if(nextFirst > 0 ) {
             nextFirst = nextFirst - 1;
@@ -38,12 +35,14 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             nextFirst = items.length - 1;
         }
         size++;
-    }
 
-    public void addLast(T x){
         if (size == items.length) {
             resize(size * 2);
         }
+    }
+
+    public void addLast(T x){
+
         items[nextLast] = x;
         if(nextLast < items.length - 1 ) {
             nextLast = nextLast + 1;
@@ -51,10 +50,10 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             nextLast = 0;
         }
         size++;
-    }
 
-    public boolean isEmpty(){
-        return size == 0;
+        if (size == items.length) {
+            resize(size * 2);
+        }
     }
 
     public int size(){
@@ -82,6 +81,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             nextFirst = 0;
         }
 
+        items[nextFirst] = null;
         size--;
 
         if (size > 8 && size < items.length / 4) {
@@ -103,6 +103,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             nextLast = items.length - 1;
         }
 
+        items[nextLast] = null;
         size--;
 
         if (items.length > 8 && size < items.length / 4) {
@@ -130,6 +131,9 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         private int nextPos;
         public ArrayDequeIterator(){
             nextPos = nextFirst + 1;
+            if(nextPos == items.length){
+                nextPos = 0;
+            }
         }
 
         @Override
@@ -164,14 +168,27 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
 
     public static void main(String[] args) {
-        ArrayDeque<Integer> aa = new ArrayDeque<Integer>();
-        aa.addFirst(2);
-        aa.addFirst(1);
-        aa.addLast(3);
-        aa.addLast(4);
-        aa.addLast(5);
-        aa.addLast(6);
-        aa.addLast(7);
+        ArrayDeque<Integer> ArrayDeque = new ArrayDeque<Integer>();
+        ArrayDeque.addFirst(0);
+        ArrayDeque.addLast(1);
+        ArrayDeque.get(1);
+        ArrayDeque.addFirst(3);
+        ArrayDeque.get(1);
+        ArrayDeque.addLast(5);
+        ArrayDeque.addFirst(6);
+        ArrayDeque.addFirst(7);
+        ArrayDeque.addLast(8);
+        ArrayDeque.addFirst(9);
+        ArrayDeque.get(3);
+        ArrayDeque.get(5);
+        ArrayDeque.removeFirst();
+        ArrayDeque.addLast(13);
+        ArrayDeque.removeLast();
+        ArrayDeque.addLast(15);
+        ArrayDeque.get(4);
+        ArrayDeque.addLast(17);
+        ArrayDeque.get(7);
+
 
 //        Iterator<Integer> seer = aa.iterator();
 //
@@ -179,20 +196,10 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 //            System.out.println(seer.next());
 //        }
 
-        for(int i : aa){
+        for(int i : ArrayDeque){
             System.out.println(i);
         }
 
-        ArrayDeque<Integer> bb = new ArrayDeque<Integer>();
-        bb.addFirst(2);
-        bb.addFirst(1);
-        bb.addLast(3);
-        bb.addLast(4);
-        bb.addLast(5);
-        bb.addLast(6);
-        bb.addLast(7);
-
-        System.out.println(aa.equals(bb));
 
 
 
