@@ -36,7 +36,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         }
         size++;
 
-        if (size == items.length) {
+        if (size >= items.length - 1) {
             resize(size * 2);
         }
     }
@@ -51,7 +51,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         }
         size++;
 
-        if (size == items.length) {
+        if (size >= items.length - 1) {
             resize(size * 2);
         }
     }
@@ -169,24 +169,26 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     public static void main(String[] args) {
         ArrayDeque<Integer> ArrayDeque = new ArrayDeque<Integer>();
-        ArrayDeque.addFirst(0);
+        ArrayDeque.addLast(0);
         ArrayDeque.addLast(1);
-        ArrayDeque.get(1);
-        ArrayDeque.addFirst(3);
-        ArrayDeque.get(1);
-        ArrayDeque.addLast(5);
-        ArrayDeque.addFirst(6);
-        ArrayDeque.addFirst(7);
-        ArrayDeque.addLast(8);
-        ArrayDeque.addFirst(9);
-        ArrayDeque.get(3);
-        ArrayDeque.get(5);
+        ArrayDeque.addFirst(2);
+        ArrayDeque.addLast(3);
         ArrayDeque.removeFirst();
-        ArrayDeque.addLast(13);
+        ArrayDeque.get(2);
+        ArrayDeque.addLast(6);
+        ArrayDeque.get(3);
+        ArrayDeque.addFirst(8);
         ArrayDeque.removeLast();
-        ArrayDeque.addLast(15);
-        ArrayDeque.get(4);
-        ArrayDeque.addLast(17);
+        ArrayDeque.removeFirst();
+        ArrayDeque.get(1);
+        ArrayDeque.addLast(12);
+        ArrayDeque.removeLast();
+        ArrayDeque.get(1);
+        ArrayDeque.addFirst(15);
+        ArrayDeque.addFirst(16);
+        ArrayDeque.addFirst(17);
+        ArrayDeque.addLast(18);
+        ArrayDeque.addFirst(19);
         ArrayDeque.get(7);
 
 
